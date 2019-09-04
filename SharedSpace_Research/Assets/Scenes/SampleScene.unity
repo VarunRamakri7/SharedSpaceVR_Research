@@ -306,6 +306,7 @@ GameObject:
   - component: {fileID: 636289442}
   - component: {fileID: 636289441}
   - component: {fileID: 636289440}
+  - component: {fileID: 636289444}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -389,6 +390,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &636289444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636289439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1254148e7fcbbe547be23b03f31d5389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sphere: {fileID: 998308042318355837, guid: 72797775ec4d4a04ca373822f9410239, type: 3}
 --- !u!1 &1606990482 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 998308042318355837, guid: 72797775ec4d4a04ca373822f9410239,
@@ -513,8 +527,7 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 636289443}
     m_Modifications:
-    - target: {fileID: 8875323912802444749, guid: 72797775ec4d4a04ca373822f9410239,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: Sphere
       value: 
       objectReference: {fileID: 1606990482}
@@ -578,5 +591,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 72797775ec4d4a04ca373822f9410239, type: 3}
