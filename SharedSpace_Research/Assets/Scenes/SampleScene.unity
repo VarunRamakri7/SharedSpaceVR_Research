@@ -402,7 +402,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1254148e7fcbbe547be23b03f31d5389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sphere: {fileID: 998308042318355837, guid: 72797775ec4d4a04ca373822f9410239, type: 3}
+  gameObject: {fileID: 5946793412545660331, guid: 5a557f65f04d176459352bf4606d5878,
+    type: 3}
 --- !u!1 &1606990482 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 998308042318355837, guid: 72797775ec4d4a04ca373822f9410239,

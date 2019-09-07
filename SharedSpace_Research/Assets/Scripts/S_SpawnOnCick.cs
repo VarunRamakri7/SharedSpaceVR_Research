@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class S_SpawnOnCick : MonoBehaviour
 {
-    public GameObject Sphere;
+    public GameObject gameObject;
     //public Transform Spawn;
 
     Ray ray; // Initialise the ray
@@ -21,7 +21,7 @@ public class S_SpawnOnCick : MonoBehaviour
             if(Input.GetMouseButtonDown(0))
             {
                 //hit.point.y = new Vector3(0, hit.point.y + 2, 0);
-                Instantiate(Sphere, hit.point, Quaternion.identity); // Instantiate prefab on point of hit
+                Instantiate(gameObject, new Vector3(hit.point.x, hit.point.y + 0.5f, hit.point.z), Quaternion.identity); // Instantiate prefab on point of hit
                 Debug.Log(hit.point);
             }
         }
