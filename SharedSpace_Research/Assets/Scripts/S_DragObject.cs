@@ -20,7 +20,7 @@ public class S_DragObject : MonoBehaviour
         // Move object in Z-axis if S is pressed
         if (Input.GetKeyDown(KeyCode.W))
         {
-            Debug.Log("Moving towards screen");
+            Debug.Log("Moving away from screen");
             this.transform.localPosition = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y, this.transform.localPosition.z + 1);
         }
     }
