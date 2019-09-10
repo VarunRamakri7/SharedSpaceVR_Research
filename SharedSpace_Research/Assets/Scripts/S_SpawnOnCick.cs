@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class S_SpawnOnCick : MonoBehaviour
 {
-    public GameObject gameObject;
+    public new GameObject gameObject;
     //public Transform Spawn;
 
     Ray ray; // Initialise the ray
