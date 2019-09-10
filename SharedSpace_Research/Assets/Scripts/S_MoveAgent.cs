@@ -6,7 +6,7 @@ public class S_MoveAgent : MonoBehaviour
 {
     NavMeshAgent agent;
     public Transform goal;
-    GameObject path;
+    public new GameObject path;
     Vector3 oldPosition;
 
     void Update()
@@ -20,7 +20,6 @@ public class S_MoveAgent : MonoBehaviour
 
     private void spawnObject()
     {
-
         Instantiate(path, new Vector3(agent.transform.position.x, 0, agent.transform.position.z), Quaternion.identity);
     }
 }
