@@ -17,7 +17,7 @@ public class S_CheckGrid : MonoBehaviour
 
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision)
     {
         if ((collision.gameObject.tag == "obstacle") || (collision.gameObject.tag == "Path"))
         {
