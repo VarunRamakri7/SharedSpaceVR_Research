@@ -6,11 +6,6 @@ public class S_EvalGrid : MonoBehaviour
 {
     private bool canPlace = false;
 
-    void CheckGridCell()
-    {
-
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("obstacle"))

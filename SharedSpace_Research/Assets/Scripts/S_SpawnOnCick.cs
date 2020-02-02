@@ -5,45 +5,6 @@ using UnityEngine.UI;
 
 enum DIRECTION { UP, DOWN, LEFT, RIGHT };
 
-// Class to keep track of the properties of a path object
-public class Path
-{
-    private GameObject cube;
-    private bool[] isFilled = new bool[4]; // Whether Up, Down, Left, Right are filled
-
-    public Path()
-    {
-        cube = new GameObject();
-        isFilled[0] = isFilled[1] = isFilled[2] = isFilled[3] = false;
-    }
-
-    public Path(GameObject _cube)
-    {
-        cube = _cube;
-        isFilled[0] = isFilled[1] = isFilled[2] = isFilled[3] = false;
-    }
-
-    public void SetCube(GameObject _cube)
-    {
-        cube = _cube;
-    }
-
-    public void SetFilled(int index, bool value)
-    {
-        isFilled[index] = value;
-    }
-
-    public GameObject GetCube()
-    {
-        return cube;
-    }
-
-    public bool GetFilled(int index)
-    {
-        return isFilled[index];
-    }
-}
-
 public class S_SpawnOnCick : MonoBehaviour
 {
     const int NUM_CUBES = 50;
@@ -53,7 +14,6 @@ public class S_SpawnOnCick : MonoBehaviour
     private GameObject lastCube; // LAst placed cube
     private int numberCube = 1;
     private Vector3 cubePosition;
-
 
     // Generate Button
     public Button genButton;
