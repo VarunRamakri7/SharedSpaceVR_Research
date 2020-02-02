@@ -92,8 +92,8 @@ public class PathFinder {
 
     // Method to copy the user input grid to an auxiliary array
     public static void copyGrid (int [][] grid1, int [][] grid2) {
-        for (int i=0; i<grid1.length; i++) {
-            for (int j=0; j<grid1[i].length; i++) {
+        for (int i=0; i<grid2.length; i++) {
+            for (int j=0; j<grid2.length; j++) {
                 grid1[i][j] = grid2[i][j];
             }
         }
