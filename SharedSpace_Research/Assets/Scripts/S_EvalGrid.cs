@@ -4,23 +4,22 @@ using UnityEngine;
 
 public class S_EvalGrid : MonoBehaviour
 {
-    public Grid grid;
-    public GameObject colliderParent;
+    private bool canPlace = false;
 
-    private Vector3[] pointsOfContact = new Vector3[10];
-
-    void checkGridCell()
+    void CheckGridCell()
     {
-        //grid.c
+
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.CompareTag("obstacle"))
+        if(other.CompareTag("obstacle"))
         {
-            pointsOfContact[pointsOfContact.Length] = collision.GetContact(0).point;
-
-            Debug.Log("Contact found");
+            canPlace = false;
+        }
+        else
+        {
+            canPlace = true;
         }
     }
 }

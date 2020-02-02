@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 enum DIRECTION { UP, DOWN, LEFT, RIGHT };
 
@@ -53,18 +54,30 @@ public class S_SpawnOnCick : MonoBehaviour
     private int numberCube = 1;
     private Vector3 cubePosition;
 
+
+    // Generate Button
+    public Button genButton;
+    private bool canGenerate = false;
+
     Ray ray; // Initialise the ray
     RaycastHit hit; // Initialise the hit
 
+    void OnClick()
+    {
+        canGenerate = true;
+    }
+
     void Start()
     {
+        genButton.onClick.AddListener(OnClick);
+
         cubePosition = new Vector3(Random.Range(-21.0f, 21.0f), 2.5f, Random.Range(-21.0f, 21.0f));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (numberCube < NUM_CUBES)
+        if (canGenerate && numberCube < NUM_CUBES)
         {
             generateCube();
             System.Threading.Thread.Sleep(100);
@@ -124,7 +137,7 @@ public class S_SpawnOnCick : MonoBehaviour
         GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
         cube.tag = "Path";
 
-        cube.AddComponent<S_CheckGrid>();
+        cube.AddComponent<S_CheckPathCol>();
 
         // Add physics components
         cube.GetComponent<BoxCollider>().isTrigger = true;
