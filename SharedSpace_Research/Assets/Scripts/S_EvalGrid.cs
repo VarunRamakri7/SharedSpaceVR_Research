@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class S_EvalGrid : MonoBehaviour
 {
-    private bool canPlace = false;
+    public bool canPlace = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("obstacle"))
+        Debug.Log("Collision " + other.tag);
+        if(other.CompareTag("obstacle") || other.CompareTag("Path"))
         {
+            Debug.Log("Cannot Place");
             canPlace = false;
         }
         else

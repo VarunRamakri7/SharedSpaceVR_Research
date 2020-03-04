@@ -12,7 +12,6 @@ public class S_ComCollider : MonoBehaviour
         if(other.CompareTag("obstacle"))
         {
             canPlace = false;
-            S_GeneratePath.CommonTrigger(location);
         }
     }
 }

@@ -7,6 +7,7 @@ TagManager:
   - obstacle
   - wall
   - Path
+  - cellCollider
   layers:
   - Default
   - TransparentFX

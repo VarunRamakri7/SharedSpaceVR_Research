@@ -6,7 +6,7 @@ public class S_MoveAgent : MonoBehaviour
 {
     NavMeshAgent agent;
     public Transform goal;
-    public new GameObject path;
+    public GameObject path;
     Vector3 oldPosition;
 
     void Update()
