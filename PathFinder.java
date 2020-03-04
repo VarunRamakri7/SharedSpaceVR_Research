@@ -52,6 +52,7 @@ import java.util.Random;
  * Created by Krishna on 9/22/2019.
  */
 public class PathFinder {
+    public static int GRID_SIZE = 5;            // size of the grid (5 => 5x5 square)
     public static int LAYERS = 2;               // Change according to difficulty
     public static int NUMPATH = 10;             // Number of cells in the path (per layer) - change according to difficulty
     public static int targetCost = 100;         // got from user input (difficulty)
@@ -64,13 +65,15 @@ public class PathFinder {
 
         PathFinder object = new PathFinder();
 
-        int [][] grid = new int[5][5];
-        int [][] userInput = new int[5][5];
+        int [][][] grid = new int [LAYERS][5][5];
+        int [][][] userInput = new int [LAYERS][5][5];
 
-        for (int i=0; i<5; i++) {
-            for (int j=0; j<5; j++) {
-                grid[i][j] = 0;
-                userInput[i][j] = 0;
+        for (int k=0; k<LAYERS; k++) {
+            for (int i = 0; i < 5; i++) {
+                for (int j = 0; j < 5; j++) {
+                    grid [k][i][j] = 0;
+                    userInput[k][i][j] = 0;
+                }
             }
         }
 
@@ -91,7 +94,7 @@ public class PathFinder {
     }
 
     // Method to copy the user input grid to an auxiliary array
-    public static void copyGrid (int [][] grid1, int [][] grid2) {
+    public static void copyGrid (int [][][] grid1, int [][][] grid2) {
         for (int i=0; i<grid2.length; i++) {
             for (int j=0; j<grid2.length; j++) {
                 grid1[i][j] = grid2[i][j];
@@ -100,7 +103,7 @@ public class PathFinder {
     }
 
     // argument layer holds the current layer
-    public void findPath (int [][] grid, int layer) {
+    public void findPath (int [][][] grid, int layer) {
         Random random = new Random();
         int starti;
         int startj;
@@ -114,8 +117,8 @@ public class PathFinder {
             while (true) {
                 starti = random.nextInt(5);
                 startj = random.nextInt(5);
-                if (grid[starti][startj] == 0) {
-                    grid[starti][startj] = 2;
+                if (grid [layer-1][starti][startj] == 0) {
+                    grid [layer-1][starti][startj] = 2;
                     break;
                 }
             }
@@ -145,21 +148,21 @@ public class PathFinder {
             }
 
             // check U,D,L,R
-            if (i!= 0 && grid[i-1][j] == 0) {
+            if (i!= 0 && grid [layer-1][i-1][j] == 0) {
                 i = i-1;
-                grid[i][j] = cubeType;
+                grid [layer-1][i][j] = cubeType;
             }
-            else if (i != grid.length-1 && grid[i+1][j] == 0) {
+            else if (i != GRID_SIZE-1 && grid [layer-1][i+1][j] == 0) {
                 i = i+1;
-                grid[i][j] = cubeType;
+                grid [layer-1][i][j] = cubeType;
             }
-            else if (j != 0 && grid[i][j-1] == 0) {
+            else if (j != 0 && grid [layer-1][i][j-1] == 0) {
                 j = j-1;
-                grid[i][j] = cubeType;
+                grid [layer-1][i][j] = cubeType;
             }
-            else if (j != grid.length-1 && grid[i][j+1] == 0) {
+            else if (j != GRID_SIZE-1 && grid [layer-1][i][j+1] == 0) {
                 j = j+1;
-                grid[i][j] = cubeType;
+                grid [layer-1][i][j] = cubeType;
             }
 
             endX = i;
@@ -169,30 +172,34 @@ public class PathFinder {
 
     }
 
-    public void createObstacles (int [][] grid) {
+    public void createObstacles (int [][][] grid) {
         Random random = new Random();
 
         // generate 8 obstacles randomly
         for (int i=0; i<8; i++) {
             int row = random.nextInt(5);
             int column = random.nextInt(5);
-            grid[row][column] = 1;
+            grid [0][row][column] = 1;
         }
 
     }
 
 
-    public static void printGrid(int [][] grid) {
+    public static void printGrid(int [][][] grid) {
 
-        System.out.println("--------------------");
 
-        for (int i=0; i<grid.length; i++) {
-            for (int j=0; j<grid[i].length; j++) {
-                System.out.print(grid[i][j] + " | ");
-                if (j%4 == 0 && j!=0) System.out.println();
+        for (int k=0; k<LAYERS; k++) {
+            System.out.println("--------------------");
+            System.out.println("\n\nLayer " + k);
+            System.out.println("--------------------");
+            for (int i = 0; i < GRID_SIZE; i++) {
+                for (int j = 0; j < GRID_SIZE; j++) {
+                    System.out.print(grid [k][i][j] + " | ");
+                    if (j % 4 == 0 && j != 0) System.out.println();
+                }
             }
         }
 
-        System.out.println("--------------------");
+        System.out.println("--------------------\n\n");
     }
 }
