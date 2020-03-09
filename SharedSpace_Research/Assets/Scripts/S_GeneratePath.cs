@@ -7,7 +7,7 @@ public class S_GeneratePath : MonoBehaviour
     public Collider[] colliders;
     public Transform startPos;
 
-    private const int TOTAL_CUBES = 50;
+    private const int TOTAL_CUBES = 70;
     private int numCubes = 0;
     private GameObject firstCube;
     private Transform prevCube;
@@ -67,15 +67,20 @@ public class S_GeneratePath : MonoBehaviour
 
             // Recheck position
             int tempLoc = randomLocation;
-            if (randomLocation != tempLoc)
-            {
-                // Check placement of the new position
-                canPlace = CheckPlacement(PlaceCube(randomLocation, tempCube.transform)) /*&& tempCube.GetComponent<S_EvalGrid>().canPlace)*/;
-            }
-            else
-            {
-                randomLocation = Random.Range(0, 4);
-            }
+
+            //while (!canPlace)
+            //{
+                //Debug.Log("Fixing.... Can place: " + canPlace);
+                if (randomLocation != tempLoc)
+                {
+                    // Check placement of the new position
+                    canPlace = CheckPlacement(PlaceCube(randomLocation, tempCube.transform)) /*&& tempCube.GetComponent<S_EvalGrid>().canPlace)*/;
+                }
+                else
+                {
+                    randomLocation = Random.Range(0, 4);
+                }
+            //}
         }
 
         // Update previous cube
