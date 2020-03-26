@@ -17,7 +17,7 @@ public class S_GeneratePath : MonoBehaviour
         // Create the first cube to start the path
         firstCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
         firstCube.transform.position = startPos.position;
-        firstCube.transform.localScale = new Vector3(12.5f, 1.0f, 12.5f);
+        firstCube.transform.localScale = new Vector3(6.0f, 1.0f, 6.0f);
 
         // Save transformation of the last cube
         prevCube = firstCube.transform;
@@ -36,55 +36,70 @@ public class S_GeneratePath : MonoBehaviour
     // Generate a path by starting from a random location
     private void GeneratePath()
     {
-        int randomLocation = Random.Range(0, 4); // Select Up(0)/Down(1)/Left(2)/Right(3)
-        GameObject tempCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        tempCube.transform.position = prevCube.position;
-        tempCube.transform.localScale = new Vector3(6.0f, 1.0f, 6.0f);
-        tempCube.tag = "Path";
+        bool isSuccessful = false;
 
-        // Add collider to cube and make it a trigger
-        tempCube.AddComponent<BoxCollider>();
-        tempCube.GetComponent<BoxCollider>().isTrigger = true;
-
-        // Add script to check collision
-        tempCube.AddComponent<S_EvalGrid>();
-
-        // Get new position of cube
-        Vector3 newPosition = PlaceCube(randomLocation, tempCube.transform);
-
-        // Check if cube can be placed
-        bool canPlace = CheckPlacement(newPosition) /*&& tempCube.GetComponent<S_EvalGrid>().canPlace)*/;
-        if (canPlace)
+        // Run loop until the cube has been placed successfully
+        while (!isSuccessful)
         {
-            Debug.Log("Placing new cube");
+            int randomLocation = Random.Range(0, 4); // Select Up(0)/Down(1)/Left(2)/Right(3)
+            GameObject tempCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            tempCube.transform.position = prevCube.position;
+            tempCube.transform.localScale = new Vector3(6.0f, 1.0f, 6.0f);
 
-            // Assign new position since it is valid
-            tempCube.transform.position = newPosition;
-        }
-        else
-        {
-            Debug.Log("Changing position");
+            // Add collider to cube and make it a trigger
+            tempCube.AddComponent<BoxCollider>();
+            tempCube.GetComponent<BoxCollider>().isTrigger = true;
 
-            // Recheck position
-            int tempLoc = randomLocation;
+            // Add script to check collision
+            tempCube.AddComponent<S_EvalGrid>();
 
-            //while (!canPlace)
-            //{
-                //Debug.Log("Fixing.... Can place: " + canPlace);
-                if (randomLocation != tempLoc)
+            // Get new position of cube
+            Vector3 newPosition = PlaceCube(randomLocation, tempCube.transform);
+
+            // Check if cube can be placed
+            bool canPlace = CheckGridBounds(newPosition);
+            if (canPlace)
+            {
+                Debug.Log("Placing new cube");
+
+                // Assign new position since it is valid
+                tempCube.transform.position = newPosition;
+            }
+            else
+            {
+                Debug.Log("Changing position");
+
+                // Recheck position
+                int tempLoc = randomLocation;
+
+                while (!canPlace)
                 {
-                    // Check placement of the new position
-                    canPlace = CheckPlacement(PlaceCube(randomLocation, tempCube.transform)) /*&& tempCube.GetComponent<S_EvalGrid>().canPlace)*/;
+                    //Debug.Log("Fixing.... Can place: " + canPlace);
+                    if (randomLocation != tempLoc)
+                    {
+                        // Check placement of the new position
+                        canPlace = CheckGridBounds(PlaceCube(randomLocation, tempCube.transform));
+                    }
+                    else
+                    {
+                        // Update direction of placement
+                        randomLocation = Random.Range(0, 4);
+                    }
                 }
-                else
-                {
-                    randomLocation = Random.Range(0, 4);
-                }
-            //}
-        }
+            }
 
-        // Update previous cube
-        prevCube = tempCube.transform;
+            // Update previous cube
+            prevCube = tempCube.transform;
+            tempCube.tag = "Path";
+            isSuccessful = true;
+
+            if (tempCube.GetComponent<S_EvalGrid>().canPlace)
+            {
+                Debug.Log("Unsuccessful placement");
+                Destroy(tempCube);
+                isSuccessful = false;
+            }
+        }
     }
 
     private Vector3 PlaceCube(int next, Transform prevCube)
@@ -111,7 +126,7 @@ public class S_GeneratePath : MonoBehaviour
         }
     }
 
-    private bool CheckPlacement(Vector3 location)
+    private bool CheckGridBounds(Vector3 location)
     {
         bool isSuccessful = true;
 
