@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class S_GeneratePath : MonoBehaviour
 {
@@ -13,6 +12,9 @@ public class S_GeneratePath : MonoBehaviour
     private GameObject firstCube;
     private Transform prevCube;
 
+    // NavMesh Components
+    //public NavMeshSurface surface;
+
     private void Start()
     {   
         // Create the first cube to start the path
@@ -22,17 +24,31 @@ public class S_GeneratePath : MonoBehaviour
 
         // Save transformation of the last cube
         prevCube = firstCube.transform;
+
+        GenerateLevel();
+
+        // Update NavMesh
+        //surface.BuildNavMesh();
+    }
+
+    private void GenerateLevel()
+    {
+        while (numCubes < TOTAL_CUBES)
+        {
+            GeneratePath();
+            numCubes++;
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         if (numCubes < TOTAL_CUBES)
         {
             GeneratePath();
             numCubes++;
         }
-    }
+    }*/
 
     // Generate a path by starting from a random location
     private void GeneratePath()
@@ -136,6 +152,8 @@ public class S_GeneratePath : MonoBehaviour
 
         return isSuccessful;
     }
+
+
 
     /**
     * Algorithm to Generate Path
