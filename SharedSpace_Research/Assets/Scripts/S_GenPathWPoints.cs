@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class S_GenPathWPoints : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class S_GenPathWPoints : MonoBehaviour
        if (numCubes < TOTAL_CUBES)
         {
             GenerateLevel();
+            Debug.Log("Cube Num: " + numCubes);
         }
 
         Debug.Log("Generation complete");
@@ -41,12 +43,13 @@ public class S_GenPathWPoints : MonoBehaviour
 
             // Calculate and store path
             agent.CalculatePath(travelPoints[i], path);
-            Debug.Log("Path: " + path.ToString());
+            agent.SetPath(path);
+            agent.nextPosition = travelPoints[i];
 
             // Iterate through path and place cubes
-            for (int j = 4; j < (path.corners.Length - 4); j += 4)
+            for (int j = 0; j < path.corners.Length; j++)
             {
-                Debug.Log("Path number: " + (j/4));
+                Debug.Log("Path number: " + j);
                 Debug.Log("Distance: " + Vector3.Distance(path.corners[j - 4], path.corners[j]));
                 GameObject tempCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 tempCube = GenCubeAt(tempCube, path.corners[j]);
@@ -57,6 +60,8 @@ public class S_GenPathWPoints : MonoBehaviour
     // Generate a single cube
     private GameObject GenCubeAt(GameObject cube, Vector3 spawnLocation)
     {
+        Debug.Log("Generating cube...");
+
         cube.transform.position = spawnLocation;
         cube.transform.localScale = new Vector3(2.0f, 1.0f, 2.0f);
         cube.tag = "Path";
